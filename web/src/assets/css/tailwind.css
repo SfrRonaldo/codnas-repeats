@@ -1,3 +1,28 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* Preloader */
+.elevate {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  justify-content: center;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  transition-property: height;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+.show {
+  height: 0;
+}
+
+.loaded {
+  display: none;
+}
