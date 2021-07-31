@@ -12,7 +12,7 @@ import Footer from '../components/Footer'
 const App = () => {
   return (
     <Router>
-      <div className="font-montserrat min-h-screen relative">
+      <div className="font-montserrat min-h-screen relative bg-gray-100">
         <Header />
         <ScrollToTop />
         <Switch>
