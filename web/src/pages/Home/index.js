@@ -50,10 +50,14 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 gap-5">
             <div title="Pontificia Universidad Católica del Perú">
-              <img src={LogoPucp} alt="pucp" />
+              <a href="https://www.pucp.edu.pe/" target="_blank" rel="noreferrer">
+                <img src={LogoPucp} alt="pucp" />
+              </a>
             </div>
             <div title="Universidad Nacional de Quilmes">
-              <img src={LogoUnq} alt="unq" />
+              <a href="http://www.unq.edu.ar/" target="_blank" rel="noreferrer">
+                <img src={LogoUnq} alt="unq" />
+              </a>
             </div>
           </div>
         </div>
