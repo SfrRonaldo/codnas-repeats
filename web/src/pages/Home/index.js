@@ -16,7 +16,7 @@ const Home = () => {
             <div className="p-16 px-4 sm:px-20 sm:py-28 md:px-24 md:py-32 lg:px-54 xl:px-72 2xl:px-96">
               <div className="bg-white shadow-2xl rounded-xl">
                 <div className="text-center p-4 sm:p-8">
-                  <h1 className="text-lg leading-5 sm:text-2xl sm:leading-6 md:text-3xl md:leading-7 font-bold text-gray-3 mb-2">
+                  <h1 className="text-lg leading-5 sm:text-2xl sm:leading-6 md:text-3xl md:leading-7 font-bold text-gray-3 mb-4">
                     Tool for the analysis of conformational diversity in repeating protein structures
                   </h1>
                   <Search />
