@@ -41,7 +41,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="pb-28">
+      <section className="pb-16">
         <div className="py-12 px-8 sm:px-20 sm:py-28 md:px-24 md:py-32 lg:px-54 xl:px-72 2xl:px-96">
           <div className="text-center mb-10">
             <h1 className="text-lg leading-5 sm:text-2xl sm:leading-6 md:text-3xl md:leading-7 font-bold text-gray-3">
