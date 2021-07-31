@@ -68,11 +68,11 @@ const Header = () => {
               static
               className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right lg:hidden"
             >
-              <div className="rounded-lg shadow-md bg-primary-dark ring-1 ring-white ring-opacity-5 overflow-hidden">
+              <div className="rounded-lg shadow-md bg-white ring-1 ring-white ring-opacity-5 overflow-hidden">
                 <div className="px-5 pt-4 flex items-center justify-between">
                   <div className="flex-shrink-0 flex items-center">
                     <Link to="/home">
-                      <span className="text-white font-medium">CoDNaS-Repeats</span>
+                      <span className="text-black font-medium">CoDNaS-Repeats</span>
                     </Link>
                   </div>
                   <div className="-mr-2">
@@ -88,10 +88,8 @@ const Header = () => {
                       key={item.name}
                       to={item.path}
                       className={classNames(
-                        'text-white hover:bg-primary-light',
-                        `block px-3 py-2 rounded-md text-sm nav-link ${
-                          pathname === item.path ? 'bg-primary-light' : ''
-                        }`
+                        'text-black hover:bg-primary-dark',
+                        `block px-3 py-2 rounded-md text-sm nav-link ${pathname === item.path ? 'bg-primary-dark' : ''}`
                       )}
                     >
                       {item.name}
