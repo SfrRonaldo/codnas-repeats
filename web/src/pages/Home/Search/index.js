@@ -90,7 +90,7 @@ const Search = () => {
 
   return (
     <Fragment>
-      <div className="px-2 md:px-10 lg:px-20">
+      <div className="px-2 md:px-10 lg:px-24 2xl:px-32">
         <form className="grid grid-cols-1 gap-0 md:grid-cols-3 md:gap-5">
           <Virtualize
             repeats={repeats}
