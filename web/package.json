@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "start-api": "cd ../api && venv/bin/flask run --no-debugger",
+    "start-api": "cd ../service && venv/bin/flask run --no-debugger",
     "build": "craco build",
     "test": "craco test",
     "start-test": "cd ../api && venv/bin/flask test",
