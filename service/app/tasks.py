@@ -1,3 +1,4 @@
+from os import sync
 import secrets
 import sys
 import string
@@ -5,7 +6,7 @@ from flask import render_template
 from app import create_app, db
 from app.email import send_email
 from app.models import GenInfoResult, StrucInfoResult, ConformerResult
-from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo, launch_task
+from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo
 
 app = create_app()
 app.app_context().push()
@@ -59,7 +60,8 @@ def analysis(data):
       sender=app.config['ADMINS'][0],
       recipients=[data['email']],
       text_body=render_template('response.txt', repeatId=data['repeatId']),
-      html_body=render_template('response.html', repeatId=url)
+      html_body=render_template('response.html', repeatId=url),
+      sync=True
     )
   except:
     app.logger.error('Unhandled exception', exc_info=sys.exc_info())

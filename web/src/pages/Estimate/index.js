@@ -28,21 +28,18 @@ const Estimate = ({ history }) => {
     if (regex.test(id)) {
       const pdbId = `${id.split('_')[0].toLowerCase()}_${id.split('_')[1]}`
       if (data.some((item) => item.pdb_id === pdbId)) {
-        const idx = data.findIndex((item) => item.pdb_id === pdbId)
-        if (data[idx].num_conf < 10) {
-          const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
-          getEstimateDetails()
-          setChecked(true)
-        } else {
-          console.log('correr en background')
-        }
         setLoading(true)
         setVerified(true)
+        const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
+        getEstimateDetails()
+        setChecked(true)
       } else {
         setLoading(true)
+        setVerified(false)
       }
     } else {
       setLoading(true)
+      setVerified(false)
     }
   }, [])
 
@@ -53,8 +50,16 @@ const Estimate = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      const estimateConformationDiversity = () => dispatch(estimateConformationalDiversityAction(id))
-      estimateConformationDiversity()
+      console.log(verified)
+      console.log(loading)
+      const pdbId = `${id.split('_')[0].toLowerCase()}_${id.split('_')[1]}`
+      const idx = data.findIndex((item) => item.pdb_id === pdbId)
+      if (data[idx].num_conf < 10) {
+        const estimateConformationDiversity = () => dispatch(estimateConformationalDiversityAction(id))
+        estimateConformationDiversity()
+      } else {
+        setChecked(false)
+      }
     }
   }, [error])
 
