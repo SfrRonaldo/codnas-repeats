@@ -1,4 +1,4 @@
-import clientAxios from '../config/axios'
+import axios from 'axios'
 import {
   START_GETTING_REPEAT_DETAILS,
   GET_REPEAT_DETAILS_SUCCESS,
@@ -14,12 +14,12 @@ export function getRepeatDetailsAction(repeatId) {
     dispatch(getRepeatDetails())
     try {
       const urlGeneralInformation = `/api/repeats/genInformation/${repeatId}`
-      const urlStructuralInformation = `/cluster/strucInformation/${repeatId}`
-      const urlConformers = `/cluster/conformers/${repeatId}`
+      const urlStructuralInformation = `/api/repeats/strucInformation/${repeatId}`
+      const urlConformers = `/api/repeats/conformers/${repeatId}`
       const [res1, res2, res3] = await Promise.all([
-        clientAxios(urlGeneralInformation),
-        clientAxios(urlStructuralInformation),
-        clientAxios(urlConformers),
+        axios(urlGeneralInformation),
+        axios(urlStructuralInformation),
+        axios(urlConformers),
       ])
       dispatch(
         getRepeatDetailsSuccess({
