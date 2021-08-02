@@ -4,6 +4,7 @@ import { Routes } from '../routes'
 // pages
 import Home from './Home'
 import Tutorial from './Tutorial'
+import NotFound from './NotFound'
 // components
 import Header from '../components/Header'
 import ScrollToTop from '../components/ScrollToTop'
@@ -18,7 +19,9 @@ const App = () => {
         <Switch>
           <RouteWithLoader exact path={Routes.Home.path} component={Home} />
           <RouteWithLoader exact path={Routes.Tutorial.path} component={Tutorial} />
+          <RouteWithLoader exact path={Routes.NotFound.path} component={NotFound} />
           <Redirect exact path="/" to={Routes.Home.path} />
+          <Redirect path="*" to={Routes.NotFound.path} />
         </Switch>
         <Footer />
       </div>
