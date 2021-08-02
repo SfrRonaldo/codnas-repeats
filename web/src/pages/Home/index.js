@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom'
 import Search from './Search'
 import LogoPucp from '../../assets/img/logo-pucp.png'
 import LogoUnq from '../../assets/img/logo-unq.png'
-import { BsBook } from 'react-icons/bs' // Redux
+import { BsBook } from 'react-icons/bs'
+// Redux
 import { useDispatch } from 'react-redux'
 import { cleanRepeatDetailsAction } from '../../actions/repeatActions'
 
