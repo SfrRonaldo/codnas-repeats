@@ -8,6 +8,9 @@ import {
   START_ESTIMATING_CONFORMATIONAL_DIVERSITY,
   ESTIMATE_CONFORMATIONAL_DIVERSITY_SUCCESS,
   ESTIMATE_CONFORMATIONAL_DIVERSITY_ERROR,
+  START_ESTIMATING_IN_THE_BACKGROUND,
+  ESTIMATE_IN_THE_BACKGROUND_SUCCESS,
+  ESTIMATE_IN_THE_BACKGROUND_ERROR,
 } from '../types'
 
 // Initial State
@@ -24,6 +27,7 @@ export default function (state = initialState, action) {
     case START_GETTING_ESTIMATE_DETAILS:
     case START_CLEANING_ESTIMATE_DETAILS:
     case START_ESTIMATING_CONFORMATIONAL_DIVERSITY:
+    case START_ESTIMATING_IN_THE_BACKGROUND:
       return {
         ...state,
         loading: action.payload,
@@ -41,6 +45,7 @@ export default function (state = initialState, action) {
     case GET_ESTIMATE_DETAILS_ERROR:
     case CLEAN_ESTIMATE_DETAILS_ERROR:
     case ESTIMATE_CONFORMATIONAL_DIVERSITY_ERROR:
+    case ESTIMATE_IN_THE_BACKGROUND_ERROR:
       return {
         ...state,
         loading: false,
@@ -54,6 +59,12 @@ export default function (state = initialState, action) {
         conformers: null,
         error: null,
         loading: false,
+      }
+    case ESTIMATE_IN_THE_BACKGROUND_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
       }
     default:
       return state

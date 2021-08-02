@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 import { useSelector, useDispatch } from 'react-redux'
-import { getEstimateDetailsAction, estimateConformationalDiversityAction } from '../../actions/estimateActions'
+import {
+  getEstimateDetailsAction,
+  estimateConformationalDiversityAction,
+  estimateInTheBackgroundAction,
+} from '../../actions/estimateActions'
 import data from '../../data/repeats.json'
 import General from './General'
 import Structural from './Structural'
@@ -56,10 +60,14 @@ const Estimate = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
+    // const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
+    const regex =
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     if (!regex.test(email)) {
       console.log('ERROR')
     } else {
+      const estimateInTheBackground = () => dispatch(estimateInTheBackgroundAction({ email: email, repeatId: id }))
+      estimateInTheBackground()
       const timer = setTimeout(() => history.push('/home'), 2000)
       return () => clearTimeout(timer)
     }

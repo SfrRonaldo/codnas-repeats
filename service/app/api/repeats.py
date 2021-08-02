@@ -1,7 +1,7 @@
 from datetime import datetime
 import string
 import secrets
-from flask import jsonify
+from flask import jsonify, request
 from app.models import GenInfo, GenInfoResult, StrucInfo, StrucInfoResult, Conformer, ConformerResult
 from app import db
 from app.api import bp
@@ -201,7 +201,7 @@ def get_estimate(repeatId):
     return response
 
 @bp.route('/estimate/<string:repeatId>', methods=['GET'])
-def estimate_conformational_diversity(repeatId):
+def estimate_conformational_diversity_foreground(repeatId):
   try:
     alphabet = string.ascii_letters + string.digits
     while True:
@@ -260,3 +260,25 @@ def estimate_conformational_diversity(repeatId):
     )
     response.status_code = 404
     return response
+
+@bp.route('/estimate', methods=['POST'])
+def estimate_conformational_diversity_background():
+  data = request.get_json()
+  print(data)
+  try:
+    response = jsonify(
+      category="error",
+      message="The estimation of the conformational diversity is being processed",
+      timestamp=datetime.now(),
+      status=200
+    )
+    return response        
+  except:
+    response = jsonify(
+      category="error",
+      message="The estimation of the conformational diversity has not been processed",
+      timestamp=datetime.now(),
+      status=500
+    )
+    response.status_code = 404
+    return response  
