@@ -6,6 +6,7 @@ from app.models import GenInfo, GenInfoResult, StrucInfo, StrucInfoResult, Confo
 from app import db
 from app.api import bp
 from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo
+from app.tasks import analysis
 
 @bp.route('/repeats/genInformation/<string:repeatId>', methods=['GET'])
 def get_general_information(repeatId):
@@ -264,7 +265,7 @@ def estimate_conformational_diversity_foreground(repeatId):
 @bp.route('/estimate', methods=['POST'])
 def estimate_conformational_diversity_background():
   data = request.get_json()
-  print(data)
+  analysis(data)
   try:
     response = jsonify(
       category="error",

@@ -1,0 +1,11 @@
+Dear,
+
+The conformational diversity analysis has been successfully completed. 
+
+Click on the following link to see the result:
+
+localhost:3000/repeats/estimate/{{repeatId}}
+
+Sincerely,
+
+The CoDNaS-Repeats Team
