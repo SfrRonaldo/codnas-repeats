@@ -5,6 +5,7 @@ import { Routes } from '../routes'
 import Home from './Home'
 import Tutorial from './Tutorial'
 import Detail from './Detail'
+import Estimate from './Estimate'
 import NotFound from './NotFound'
 // components
 import Header from '../components/Header'
@@ -25,6 +26,7 @@ const App = () => {
             <RouteWithLoader exact path={Routes.Home.path} component={Home} />
             <RouteWithLoader exact path={Routes.Tutorial.path} component={Tutorial} />
             <RouteWithLoader exact path={Routes.Detail.path} component={Detail} />
+            <RouteWithLoader exact path={Routes.Estimate.path} component={Estimate} />
             <RouteWithLoader exact path={Routes.NotFound.path} component={NotFound} />
             <Redirect exact path="/" to={Routes.Home.path} />
             <Redirect path="*" to={Routes.NotFound.path} />
