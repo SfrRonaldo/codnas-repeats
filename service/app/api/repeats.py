@@ -38,7 +38,7 @@ def get_structural_information(repeatId):
     StrucInfo.to_collection(results, data)
     response = jsonify(
       category="success",
-      message="The general information of repeat was satisfactorily obtained",
+      message="The structural information of repeat was satisfactorily obtained",
       timestamp=datetime.now(),
       payload=data,
       status=200
@@ -47,7 +47,7 @@ def get_structural_information(repeatId):
   except:
     response = jsonify(
       category="error",
-      message="The general information of repeat was not satisfactorily obtained",
+      message="The structural information of repeat was not satisfactorily obtained",
       timestamp=datetime.now(),
       status=404
     )
@@ -65,7 +65,7 @@ def get_conformers(repeatId):
     StrucInfo.to_collection(results_conformer_2, data)
     response = jsonify(
       category="success",
-      message="The general information of repeat was satisfactorily obtained",
+      message="The conformers of repeat was satisfactorily obtained",
       timestamp=datetime.now(),
       payload=data,
       status=200
@@ -74,7 +74,7 @@ def get_conformers(repeatId):
   except:
     response = jsonify(
       category="error",
-      message="The general information of repeat was not satisfactorily obtained",
+      message="The conformers of repeat was not satisfactorily obtained",
       timestamp=datetime.now(),
       status=404
     )

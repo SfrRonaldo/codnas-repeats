@@ -53,7 +53,7 @@ class StrucInfo(db.Model):
   def to_collection(results, data):
     for i in results:
       data.append(i.to_dict())    
-    return data
+    return
 
 class Conformer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -102,4 +102,4 @@ class Conformer(db.Model):
   def to_collection(results, data):
     for i in results:
       data.append(i.to_dict())    
-    return data    
+    return 
