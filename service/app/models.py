@@ -105,14 +105,13 @@ class Conformer(db.Model):
     return
 
 class GenInfoResult(db.Model):
-  id = db.Column(db.String(4), primary_key=True)
+  id = db.Column(db.String(45), primary_key=True)
   pdb_id = db.Column(db.String(10))
   lower = db.Column(db.Integer)
   upper = db.Column(db.Integer)
   name = db.Column(db.String(260))
   title = db.Column(db.String(340))
   organism = db.Column(db.String(115))
-  seq_res = db.Column(db.Integer)
   classification = db.Column(db.String(60))
 
   def __repr__(self):
@@ -127,13 +126,12 @@ class GenInfoResult(db.Model):
       'name': self.name,
       'title': self.title,
       'organism': self.organism,
-      'seq_res': self.seq_res,
       'classification': self.classification
     }
     return data
 
 class StrucInfoResult(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.String(45), primary_key=True)
   num_conf = db.Column(db.Integer)
   rmsd_min = db.Column(db.Float)
   rmsd_max = db.Column(db.Float)
@@ -154,21 +152,15 @@ class StrucInfoResult(db.Model):
 
 class ConformerResult(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  id_result = db.Column(db.Integer)
+  id_result = db.Column(db.String(45))
   conformer_1 = db.Column(db.String(10))
   conformer_2 = db.Column(db.String(10))
   lower_1 = db.Column(db.Integer)
   lower_2 = db.Column(db.Integer)
   upper_1 = db.Column(db.Integer)
   upper_2 = db.Column(db.Integer)
-  length_1 = db.Column(db.Integer)
-  length_2 = db.Column(db.Integer)
-  aligned_length = db.Column(db.Integer)
   rmsd = db.Column(db.Float)
   seq_id = db.Column(db.Float)
-  tmscore_1 = db.Column(db.Float)
-  tmscore_2 = db.Column(db.Float)
-  tmscore_avg = db.Column(db.Float)
 
   def __repr__(self):
     return '<ConformerResult {}>'.format(self.id)
@@ -183,14 +175,8 @@ class ConformerResult(db.Model):
       'lower_2': self.lower_2,
       'upper_1': self.upper_1,
       'upper_2': self.upper_2,
-      'length_1': self.length_1,
-      'length_2': self.length_2,
-      'aligned_length': self.aligned_length,
       'rmsd': self.rmsd,
-      'seq_id': self.seq_id,
-      'tmscore_1': self.tmscore_1,
-      'tmscore_2': self.tmscore_2,
-      'tmscore_avg': self.tmscore_avg
+      'seq_id': self.seq_id
     }
     return data
   

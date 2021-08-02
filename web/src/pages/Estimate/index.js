@@ -2,9 +2,12 @@ import { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import ReactLoading from 'react-loading'
+import { useSelector, useDispatch } from 'react-redux'
+import { getEstimateDetailsAction, estimateConformationalDiversityAction } from '../../actions/estimateActions'
 import data from '../../data/repeats.json'
 
 const Estimate = ({ history }) => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const params = useParams()
   const [loading, setLoading] = useState(false)
@@ -14,13 +17,12 @@ const Estimate = ({ history }) => {
   const { id } = params
 
   useEffect(() => {
-    console.log(id)
     const pdbId = `${id.substring(0, 4).toLowerCase()}${id.substring(4, 6)}`
-    console.log(pdbId)
     if (data.some((item) => item.pdb_id === pdbId)) {
       const idx = data.findIndex((item) => item.pdb_id === pdbId)
-      console.log(data[idx])
       if (data[idx].num_conf < 10) {
+        const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
+        getEstimateDetails()
         setChecked(true)
       } else {
         console.log('correr en background')
@@ -31,6 +33,17 @@ const Estimate = ({ history }) => {
       setLoading(true)
     }
   }, [])
+
+  const error = useSelector((state) => state.estimate.error)
+  const general = useSelector((state) => state.estimate.general)
+
+  useEffect(() => {
+    console.log(error)
+    if (error) {
+      const estimateConformationDiversity = () => dispatch(estimateConformationalDiversityAction(id))
+      estimateConformationDiversity()
+    }
+  }, [error])
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -60,7 +73,18 @@ const Estimate = ({ history }) => {
             )}
             {verified ? (
               checked ? (
-                <h1>Buscar en base de datos</h1>
+                !general ? (
+                  <div className="pt-12 space-y-4">
+                    <div id="loader" style={{ textAlign: '-webkit-center' }}>
+                      <ReactLoading type="spin" color="#d0646c" />
+                    </div>
+                    <div className="text-center">
+                      <span>Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <h1>Mostrar info</h1>
+                )
               ) : (
                 <div className="py-5 sm:py-10 space-y-4">
                   <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Request</h1>

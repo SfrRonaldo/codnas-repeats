@@ -1,8 +1,11 @@
 from datetime import datetime
+import string
+import secrets
 from flask import jsonify
 from app.models import GenInfo, GenInfoResult, StrucInfo, StrucInfoResult, Conformer, ConformerResult
 from app import db
 from app.api import bp
+from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo
 
 @bp.route('/repeats/genInformation/<string:repeatId>', methods=['GET'])
 def get_general_information(repeatId):
@@ -164,14 +167,14 @@ def get_conformers_results(repeatId):
     response.status_code = 404
     return response 
 
-@bp.route('/estimate/<string:repeatId>', methods=['GET'])
+@bp.route('/estimate/search/<string:repeatId>', methods=['GET'])
 def get_estimate(repeatId):
   try:
     _pdbId = repeatId.split('_')[0].lower() + '_' + repeatId.split('_')[1]
     _lower = int(repeatId.split('_')[2])
     _upper = int(repeatId.split('_')[3])
     genInfoResult = GenInfoResult.query.filter_by(pdb_id=_pdbId, lower=_lower, upper=_upper).first().to_dict()
-    _id = int(genInfoResult['id'])
+    _id = genInfoResult['id']
     strucInfoResult = StrucInfoResult.query.filter_by(id=_id).first().to_dict()
     results_conformer_1 = ConformerResult.query.filter_by(id_result=_id, conformer_1=_pdbId).all()
     results_conformer_2 = ConformerResult.query.filter_by(id_result=_id, conformer_2=_pdbId).all()
@@ -195,4 +198,65 @@ def get_estimate(repeatId):
       status=404
     )
     response.status_code = 404
-    return response    
+    return response
+
+@bp.route('/estimate/<string:repeatId>', methods=['GET'])
+def estimate_conformational_diversity(repeatId):
+  try:
+    alphabet = string.ascii_letters + string.digits
+    while True:
+      token = ''.join(secrets.choice(alphabet) for i in range(10))
+      if (any(c.islower() for c in token)
+        and any(c.isupper() for c in token)
+        and sum(c.isdigit() for c in token) >= 3):
+        break
+    _repeatId = repeatId
+    _generalInformation = estimateGenInfo(_repeatId[:4], token, _repeatId)
+    _conformers = estimateConformers(_repeatId, token)
+    db.session.add(GenInfoResult(
+      id=_generalInformation['id'], pdb_id=_generalInformation['pdb_id'],
+      lower=int(_generalInformation['lower']), upper=int(_generalInformation['upper']),
+      name=_generalInformation['name'], title=_generalInformation['title'],
+      organism=_generalInformation['organism'], classification=_generalInformation['classification']
+    ))
+    db.session.commit()    
+    for i in _conformers:
+      db.session.add(ConformerResult(
+        id_result=_repeatId[:4].lower()+_repeatId[4:],
+        conformer_1=i['conformer_1'],
+        conformer_2=i['conformer_2'],
+        lower_1=int(i['lower_1']),
+        lower_2=int(i['lower_2']),
+        upper_1=int(i['upper_1']),
+        upper_2=int(i['upper_2']),
+        rmsd=float(i['rmsd']),
+        seq_id=float(i['seq_id'])
+      ))  
+    db.session.commit()
+    _structuralInformation = estimateStrucInfo(token)
+    db.session.add(StrucInfoResult(
+      id=_repeatId[:4].lower()+_repeatId[4:],
+      num_conf=_structuralInformation['num_conf'],
+      rmsd_min=_structuralInformation['rmsd_min'],
+      rmsd_max=_structuralInformation['rmsd_max'],
+      rmsd_avg=_structuralInformation['rmsd_avg']
+    ))
+    db.session.commit()
+    data = { 'genInfo': _generalInformation, 'conformers': _conformers, 'strucInfo': _structuralInformation }
+    response = jsonify(
+      category="success",
+      message="The estimation of the conformational diversity was obtained in a satisfactory way",
+      timestamp=datetime.now(),
+      payload=data,
+      status=200
+    )
+    return response
+  except:
+    response = jsonify(
+      category="error",
+      message="The estimation of the conformational diversity was not obtained in a satisfactory way",
+      timestamp=datetime.now(),
+      status=404
+    )
+    response.status_code = 404
+    return response

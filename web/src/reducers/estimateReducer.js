@@ -5,6 +5,9 @@ import {
   START_CLEANING_ESTIMATE_DETAILS,
   CLEAN_ESTIMATE_DETAILS_SUCCESS,
   CLEAN_ESTIMATE_DETAILS_ERROR,
+  START_ESTIMATING_CONFORMATIONAL_DIVERSITY,
+  ESTIMATE_CONFORMATIONAL_DIVERSITY_SUCCESS,
+  ESTIMATE_CONFORMATIONAL_DIVERSITY_ERROR,
 } from '../types'
 
 // Initial State
@@ -20,11 +23,13 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case START_GETTING_ESTIMATE_DETAILS:
     case START_CLEANING_ESTIMATE_DETAILS:
+    case START_ESTIMATING_CONFORMATIONAL_DIVERSITY:
       return {
         ...state,
         loading: action.payload,
       }
     case GET_ESTIMATE_DETAILS_SUCCESS:
+    case ESTIMATE_CONFORMATIONAL_DIVERSITY_SUCCESS:
       return {
         ...state,
         general: action.payload.res1,
@@ -35,6 +40,7 @@ export default function (state = initialState, action) {
       }
     case GET_ESTIMATE_DETAILS_ERROR:
     case CLEAN_ESTIMATE_DETAILS_ERROR:
+    case ESTIMATE_CONFORMATIONAL_DIVERSITY_ERROR:
       return {
         ...state,
         loading: false,
