@@ -20,18 +20,23 @@ const Estimate = ({ history }) => {
   const { id } = params
 
   useEffect(() => {
-    const pdbId = `${id.substring(0, 4).toLowerCase()}${id.substring(4, 6)}`
-    if (data.some((item) => item.pdb_id === pdbId)) {
-      const idx = data.findIndex((item) => item.pdb_id === pdbId)
-      if (data[idx].num_conf < 10) {
-        const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
-        getEstimateDetails()
-        setChecked(true)
+    const regex = /\w{4}_\w{1,2}_\d+_\d+$|\w{4}_\w{1}-\d+_\d+_\d+$/
+    if (regex.test(id)) {
+      const pdbId = `${id.split('_')[0].toLowerCase()}_${id.split('_')[1]}`
+      if (data.some((item) => item.pdb_id === pdbId)) {
+        const idx = data.findIndex((item) => item.pdb_id === pdbId)
+        if (data[idx].num_conf < 10) {
+          const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
+          getEstimateDetails()
+          setChecked(true)
+        } else {
+          console.log('correr en background')
+        }
+        setLoading(true)
+        setVerified(true)
       } else {
-        console.log('correr en background')
+        setLoading(true)
       }
-      setLoading(true)
-      setVerified(true)
     } else {
       setLoading(true)
     }
