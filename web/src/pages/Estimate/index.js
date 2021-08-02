@@ -5,6 +5,9 @@ import ReactLoading from 'react-loading'
 import { useSelector, useDispatch } from 'react-redux'
 import { getEstimateDetailsAction, estimateConformationalDiversityAction } from '../../actions/estimateActions'
 import data from '../../data/repeats.json'
+import General from './General'
+import Structural from './Structural'
+import Conformer from './Conformer'
 
 const Estimate = ({ history }) => {
   const dispatch = useDispatch()
@@ -36,9 +39,10 @@ const Estimate = ({ history }) => {
 
   const error = useSelector((state) => state.estimate.error)
   const general = useSelector((state) => state.estimate.general)
+  const structural = useSelector((state) => state.estimate.structural)
+  const conformers = useSelector((state) => state.estimate.conformers)
 
   useEffect(() => {
-    console.log(error)
     if (error) {
       const estimateConformationDiversity = () => dispatch(estimateConformationalDiversityAction(id))
       estimateConformationDiversity()
@@ -83,7 +87,17 @@ const Estimate = ({ history }) => {
                     </div>
                   </div>
                 ) : (
-                  <h1>Mostrar info</h1>
+                  <>
+                    <div className="pt-8">
+                      <General general={general} />
+                    </div>
+                    <div className="pt-12">
+                      <Structural structural={structural} />
+                    </div>
+                    <div className="pt-12">
+                      <Conformer conformers={conformers} />
+                    </div>
+                  </>
                 )
               ) : (
                 <div className="py-5 sm:py-10 space-y-4">

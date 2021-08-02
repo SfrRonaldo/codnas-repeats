@@ -128,25 +128,25 @@ const ConformerTable = ({ list, id, flag }) => {
               : list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((r, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.conformer1}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.conformer_1}</span>
                     </TableCell>
                     <TableCell>
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.conformer2}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.conformer_2}</span>
                     </TableCell>
                     <TableCell align="center">
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.lower1}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.lower_1}</span>
                     </TableCell>
                     <TableCell align="center">
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.upper1}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.upper_1}</span>
                     </TableCell>
                     <TableCell align="center">
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.lower2}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.lower_2}</span>
                     </TableCell>
                     <TableCell align="center">
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.upper2}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.upper_2}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.seqId}</span>
+                      <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.seq_id}</span>
                     </TableCell>
                     <TableCell align="right">
                       <span className="text-xs sm:text-sm leading-5 text-gray-600">{r.rmsd}</span>
@@ -164,11 +164,11 @@ const ConformerTable = ({ list, id, flag }) => {
           15,
           {
             label: 'All',
-            value: flag ? list.data.length : list.length,
+            value: flag === 'true' ? list.data.length : list.length,
           },
         ]}
         component="div"
-        count={flag ? list.data.length : list.length}
+        count={flag === 'true' ? list.data.length : list.length}
         rowsPerPage={rowsPerPage}
         page={page}
         SelectProps={{
