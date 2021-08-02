@@ -12,6 +12,19 @@ class GenInfo(db.Model):
 
   def __repr__(self):
     return '<GenInfo {}>'.format(self.pdb_id)
+  
+  def to_dict(self):
+    data = {
+      'pdb_id': self.pdb_id,
+      'cluster': self.cluster,
+      'name': self.name,
+      'title': self.title,
+      'organism': self.organism,
+      'seqres': self.seqres,
+      'classification': self.classification,
+      'num_regions': self.num_regions
+    }
+    return data
 
 class StrucInfo(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +37,23 @@ class StrucInfo(db.Model):
 
   def __repr__(self):
     return '<StrucInfo {}>'.format(self.id)
+
+  def to_dict(self):
+    data = {
+      'id': self.id,
+      'cluster': self.cluster,
+      'region': self.region,
+      'num_conf': self.num_conf,
+      'rmsd_min': self.rmsd_min,
+      'rmsd_max': self.rmsd_max,
+      'rmsd_avg': self.rmsd_avg
+    }
+    return data
+  
+  def to_collection(results, data):
+    for i in results:
+      data.append(i.to_dict())    
+    return data
 
 class Conformer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -46,3 +76,30 @@ class Conformer(db.Model):
 
   def __repr__(self):
     return '<Conformer {}>'.format(self.id)
+
+  def to_dict(self):
+    data = {
+      'id': self.id,
+      'cluster': self.cluster,
+      'conformer_1': self.conformer_1,
+      'conformer_2': self.conformer_2,
+      'lower_1': self.lower_1,
+      'upper_1': self.upper_1,
+      'lower_2': self.lower_2,
+      'upper_2': self.upper_2,
+      'region': self.region,
+      'length_1': self.length_1,
+      'length_2': self.length_2,
+      'aligned_length': self.aligned_length,
+      'rmsd': self.rmsd,
+      'seq_id': self.seq_id,
+      'tmscore_1': self.tmscore_1,
+      'tmscore_2': self.tmscore_2,
+      'tmscore_avg': self.tmscore_avg
+    }
+    return data
+  
+  def to_collection(results, data):
+    for i in results:
+      data.append(i.to_dict())    
+    return data    
