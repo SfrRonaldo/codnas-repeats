@@ -4,19 +4,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getRepeatDetailsAction } from '../../actions/repeatActions'
 import ReactLoading from 'react-loading'
 import General from './General'
+import Structural from './Structural'
 
 const Detail = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
   const { id } = params
-  console.log(id)
+
   useEffect(() => {
     const getRepeatDetails = () => dispatch(getRepeatDetailsAction(id))
     getRepeatDetails()
   }, [])
 
   const general = useSelector((state) => state.repeat.general)
+  const structural = useSelector((state) => state.repeat.structural)
 
   return (
     <Fragment>
@@ -29,7 +31,7 @@ const Detail = () => {
               </div>
             )}
             <div className="pt-8">{general && <General id={id} general={general} />}</div>
-            <div className="pt-12">{general && <General id={id} general={general} />}</div>
+            <div className="pt-12">{general && <Structural structural={structural} />}</div>
             <div className="pt-12">{general && <General id={id} general={general} />}</div>
           </div>
         </div>

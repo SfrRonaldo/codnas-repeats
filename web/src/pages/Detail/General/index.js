@@ -13,7 +13,7 @@ const General = ({ id, general }) => {
               <tbody className="w-full">
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="w-1/3 text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Repeat protein name:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Repeat protein name:</p>
                   </td>
                   <td className="w-2/3 text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.name}</p>
@@ -21,7 +21,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Title:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Title:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.title}</p>
@@ -29,7 +29,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Organism:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Organism:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.organism}</p>
@@ -37,7 +37,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Sequence length:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Sequence length:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.seqres}</p>
@@ -45,7 +45,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Classification:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Classification:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.classification}</p>
@@ -53,7 +53,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">Cluster:</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">Cluster:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.cluster}</p>
@@ -61,7 +61,7 @@ const General = ({ id, general }) => {
                 </tr>
                 <tr className="h-11 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                   <td className="text-left px-2 md:px-4">
-                    <p className="text-xs sm:text-sm font-medium leading-none text-gray-800">#Repeating Regions::</p>
+                    <p className="text-xs sm:text-sm font-bold leading-none text-gray-800">#Repeating Regions:</p>
                   </td>
                   <td className="text-left pl-10 pr-2 md:px-10 ">
                     <p className="text-xs sm:text-sm leading-5 text-gray-600">{general.num_regions}</p>
