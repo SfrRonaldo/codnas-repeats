@@ -25,7 +25,7 @@ const Detail = () => {
           <div className="max-w-full px-1 mx-auto lg:px-4">
             {!general && (
               <div id="loader" className="pt-12" style={{ textAlign: '-webkit-center' }}>
-                <ReactLoading type="spin" color="#2d699b" />
+                <ReactLoading type="spin" color="#d0646c" />
               </div>
             )}
             <div className="pt-8">{general && <General id={id} general={general} />}</div>
