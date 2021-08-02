@@ -7,6 +7,7 @@ import { BsBook } from 'react-icons/bs'
 // Redux
 import { useDispatch } from 'react-redux'
 import { cleanRepeatDetailsAction } from '../../actions/repeatActions'
+import { cleanEstimateDetailsAction } from '../../actions/estimateActions'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -15,6 +16,8 @@ const Home = () => {
   useEffect(() => {
     const cleanRepeatDetails = () => dispatch(cleanRepeatDetailsAction())
     cleanRepeatDetails()
+    const cleanEstimateDetails = () => dispatch(cleanEstimateDetailsAction())
+    cleanEstimateDetails()
   }, [])
 
   return (
