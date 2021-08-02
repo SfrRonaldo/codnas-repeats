@@ -5,8 +5,7 @@ from flask import jsonify, request
 from app.models import GenInfo, GenInfoResult, StrucInfo, StrucInfoResult, Conformer, ConformerResult
 from app import db
 from app.api import bp
-from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo
-from app.tasks import analysis
+from app.functions import estimateGenInfo, estimateConformers, estimateStrucInfo, launch_task
 
 @bp.route('/repeats/genInformation/<string:repeatId>', methods=['GET'])
 def get_general_information(repeatId):
@@ -265,7 +264,7 @@ def estimate_conformational_diversity_foreground(repeatId):
 @bp.route('/estimate', methods=['POST'])
 def estimate_conformational_diversity_background():
   data = request.get_json()
-  analysis(data)
+  launch_task(data)
   try:
     response = jsonify(
       category="error",

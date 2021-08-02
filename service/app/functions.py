@@ -3,6 +3,7 @@ import os
 import subprocess
 from Bio.PDB import *
 from itertools import combinations
+from flask import current_app
 
 NOT_VALID = [
   '3j6x', '3j6y', '3j77', '3j78', '3j7p', '3j7r', '3jag', '3jah', '3jai', '3jaj', '3jan', '3jco', '3jcp', '3jct', '4ym7',
@@ -326,3 +327,7 @@ def estimateStrucInfo(token):
   structuralInformation = getStructuralInformation('./tsv-files/' + token + '/conformational-diversity.tsv')
   clean(l)
   return structuralInformation
+
+def launch_task(data, *args, **kwargs):
+  current_app.task_queue.enqueue('app.tasks.analysis', data, *args, **kwargs)
+  return
