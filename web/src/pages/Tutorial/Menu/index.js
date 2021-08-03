@@ -15,7 +15,7 @@ const Menu = () => {
             </a>
           </li>
           <li>
-            <a className="text-sm sm:text-base font-normal hover:text-primary-dark" href="#search">
+            <a className="text-sm sm:text-base font-normal hover:text-primary-dark" href="#results">
               <span>Results</span>
             </a>
           </li>

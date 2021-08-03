@@ -1,5 +1,6 @@
-import Menu from './Menu'
 import SmoothScroll from 'smooth-scroll'
+import Menu from './Menu'
+import Information from './Information'
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -14,6 +15,7 @@ const Tutorial = () => {
           <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-center">How to explore CoDNaS-Repeats</h1>
           <div className="pt-5">
             <Menu />
+            <Information />
           </div>
         </div>
       </div>
