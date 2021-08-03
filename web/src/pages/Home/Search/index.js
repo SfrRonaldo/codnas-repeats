@@ -1,13 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { TextField, Snackbar } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
+import { TextField } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 import Virtualize from '../../../components/Virtualize'
 import data from '../../../data/repeats.json'
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
-}
 
 const Search = () => {
   const history = useHistory()
@@ -31,7 +27,7 @@ const Search = () => {
 
   const validationSearch = () => {
     if (repeatId.trim() === '') {
-      setMsgError('FALTA RELLENAR REPEAT ID')
+      setMsgError('Missing fill in repeat field')
       setOpen(true)
     } else {
       history.push(`/repeats/detail/${repeatId}`)
@@ -41,26 +37,26 @@ const Search = () => {
   const validationEstimate = () => {
     if (repeatId.trim() !== '') {
       if (upper.trim() === '' || lower.trim() === '') {
-        setMsgError('FALTA RELLENAR LOWER OR UPPER')
+        setMsgError('Missing fill in lower or upper field')
         setOpen(true)
       } else if (upper.trim() === '' && lower.trim() === '') {
-        setMsgError('FALTA RELLENAR LOWER OR UPPER')
+        setMsgError('Missing fill in lower or upper field')
         setOpen(true)
       } else {
         if (parseInt(lower, 10) < 1 || parseInt(upper, 10) < 1) {
-          setMsgError('LOS VALORES DEL RANGO DEBE SER MAYOR QUE 0')
+          setMsgError('Range values must be greater than 0')
           setOpen(true)
           return
         }
         if (parseInt(lower, 10) >= parseInt(upper, 10)) {
-          setMsgError('RANGO MAL INGRESADO')
+          setMsgError('The value of lower field must be less than the value of upper field')
           setOpen(true)
         } else {
           history.push(`/repeats/estimate/${repeatId}_${lower}_${upper}`)
         }
       }
     } else {
-      setMsgError('FALTA RELLENAR REPEAT ID')
+      setMsgError('Missing fill in repeat field')
       setOpen(true)
     }
   }
@@ -120,6 +116,13 @@ const Search = () => {
             onChange={(event) => setForm({ ...form, [event.target.name]: event.target.value })}
           />
         </form>
+        {open && (
+          <div className="mt-3 mb-4">
+            <Alert onClose={handleClose} severity="error">
+              {msgError}
+            </Alert>
+          </div>
+        )}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-5 mt-2">
           <div className="md:col-span-1">
             <button
@@ -139,19 +142,6 @@ const Search = () => {
               Estimate
             </button>
           </div>
-        </div>
-        <div>
-          <Snackbar
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            style={{ textAlign: 'center' }}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          >
-            <Alert onClose={handleClose} severity="error">
-              {msgError}
-            </Alert>
-          </Snackbar>
         </div>
       </div>
     </Fragment>

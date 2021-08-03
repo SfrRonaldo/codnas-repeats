@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import ReactLoading from 'react-loading'
-import MuiAlert from '@material-ui/lab/Alert'
+import Alert from '@material-ui/lab/Alert'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   getEstimateDetailsAction,
@@ -13,10 +13,6 @@ import data from '../../data/repeats.json'
 import General from './General'
 import Structural from './Structural'
 import Conformer from './Conformer'
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
-}
 
 const Estimate = ({ history }) => {
   const dispatch = useDispatch()
