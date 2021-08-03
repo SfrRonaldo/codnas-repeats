@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import ReactLoading from 'react-loading'
+import MuiAlert from '@material-ui/lab/Alert'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   getEstimateDetailsAction,
@@ -13,6 +14,10 @@ import General from './General'
 import Structural from './Structural'
 import Conformer from './Conformer'
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
+
 const Estimate = ({ history }) => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
@@ -20,6 +25,8 @@ const Estimate = ({ history }) => {
   const [loading, setLoading] = useState(false)
   const [verified, setVerified] = useState(false)
   const [checked, setChecked] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [msgError, setMsgError] = useState('')
 
   const { id } = params
 
@@ -50,8 +57,6 @@ const Estimate = ({ history }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(verified)
-      console.log(loading)
       const pdbId = `${id.split('_')[0].toLowerCase()}_${id.split('_')[1]}`
       const idx = data.findIndex((item) => item.pdb_id === pdbId)
       if (data[idx].num_conf < 10) {
@@ -63,13 +68,19 @@ const Estimate = ({ history }) => {
     }
   }, [error])
 
+  const handleClose = (_e, reason) => {
+    if (reason === 'clickaway') return
+    setOpen(false)
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
     // const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
     const regex =
       /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     if (!regex.test(email)) {
-      console.log('ERROR')
+      setMsgError('Enter a valid email address')
+      setOpen(true)
     } else {
       const estimateInTheBackground = () => dispatch(estimateInTheBackgroundAction({ email: email, repeatId: id }))
       estimateInTheBackground()
@@ -123,8 +134,13 @@ const Estimate = ({ history }) => {
                   <h2>Conformational diversity analysis will take time.</h2>
                   <h2>Enter your email and we will send you a prompt reply when the analysis is finished.</h2>
                   <form onSubmit={(e) => onSubmit(e)} className="space-y-4">
+                    {open && (
+                      <Alert onClose={handleClose} severity="error" className="w-full sm:w-80">
+                        {msgError}
+                      </Alert>
+                    )}
                     <input
-                      className="block appearance-none border border-gray-300 w-full sm:w-64 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary-dark"
+                      className="block appearance-none border border-gray-300 w-full sm:w-80 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary-dark"
                       placeholder="your-email@example.com"
                       type="email"
                       name="email"
