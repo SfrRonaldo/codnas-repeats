@@ -23,7 +23,7 @@ def create_app(config_class=Config):
   #print(app.config['SQLALCHEMY_DATABASE_URI'])
   #print(app.config['MAIL_SERVER'])
   app.redis = Redis.from_url(app.config['REDIS_URL'])
-  app.task_queue = rq.Queue('codnas-repeats-tasks', connection=app.redis)
+  app.task_queue = rq.Queue('codnas-repeats-tasks', connection=app.redis, default_timeout=600)
 
   from app.api import bp as api_bp
   app.register_blueprint(api_bp, url_prefix='/api')
