@@ -20,8 +20,6 @@ def create_app(config_class=Config):
   db.init_app(app)
   migrate.init_app(app, db)
   mail.init_app(app)
-  #print(app.config['SQLALCHEMY_DATABASE_URI'])
-  #print(app.config['MAIL_SERVER'])
   app.redis = Redis.from_url(app.config['REDIS_URL'])
   app.task_queue = rq.Queue('codnas-repeats-tasks', connection=app.redis, default_timeout=600)
 

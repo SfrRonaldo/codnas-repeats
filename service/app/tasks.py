@@ -53,8 +53,16 @@ def estimate_conformational_diversity(repeatId):
 
 def analysis(data):
   try:
+    send_email(
+      '[CoDNaS-Repeats] Conformational diversity analysis',
+      sender=app.config['ADMINS'][0],
+      recipients=[app.config['ADMINS'][0]],
+      text_body=render_template('request.txt', repeatId=data['repeatId'], email=data['email']),
+      html_body=render_template('request.html', repeatId=data['repeatId'], email=data['email']),
+      sync=True
+    )    
     estimate_conformational_diversity(data['repeatId'])
-    url = 'http://localhost:3000/repeats/estimate/{}'.format(data['repeatId'])
+    url = 'http://localhost/repeats/estimate/{}'.format(data['repeatId'])
     send_email(
       '[CoDNaS-Repeats] Conformational diversity analysis',
       sender=app.config['ADMINS'][0],

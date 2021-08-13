@@ -1,0 +1,7 @@
+Dear,
+
+User {{email}} requested a conformational diversity analysis using this entry: {{repeatId}}
+
+Sincerely,
+
+The CoDNaS-Repeats Team
