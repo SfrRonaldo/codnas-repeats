@@ -52,7 +52,16 @@ const Search = () => {
           setMsgError('The value of lower field must be less than the value of upper field')
           setOpen(true)
         } else {
-          history.push(`/repeats/estimate/${repeatId}_${lower}_${upper}`)
+          const repeat = data.find((datum) => datum.pdb_id === repeatId)
+          if (lower >= repeat.lower && upper <= repeat.upper) {
+            console.log('ESTIMAR')
+            history.push(`/repeats/estimate/${repeatId}_${lower}_${upper}`)
+          } else {
+            setMsgError(
+              `The values of the lower and upper fields must be in the range ${repeat.lower} to ${repeat.upper}`
+            )
+            setOpen(true)
+          }
         }
       }
     } else {
