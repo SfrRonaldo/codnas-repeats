@@ -54,7 +54,6 @@ const Search = () => {
         } else {
           const repeat = data.find((datum) => datum.pdb_id === repeatId)
           if (lower >= repeat.lower && upper <= repeat.upper) {
-            console.log('ESTIMAR')
             history.push(`/repeats/estimate/${repeatId}_${lower}_${upper}`)
           } else {
             setMsgError(
