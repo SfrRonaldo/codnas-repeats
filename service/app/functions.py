@@ -1,6 +1,8 @@
 import csv
 import os
 import subprocess
+import warnings
+from pathlib import Path
 from Bio.PDB import *
 from itertools import combinations
 from flask import current_app
@@ -80,6 +82,12 @@ def getGeneralInformation(pdb, dir, repeatId):
   return r
 
 def estimateGenInfo(pdb, token, repeatId):
+  warnings.filterwarnings('ignore')
+  if not os.path.exists('./structures'):
+    os.makedirs('./structures')
+  for i in range(9):
+    if not os.path.exists('./structures/' + str(i+1)):
+      os.makedirs('./structures/' + str(i+1))
   os.makedirs('./files/' + token)
   os.makedirs('./files/' + token + '/entries')
   os.makedirs('./tsv-files/' + token)
@@ -109,34 +117,40 @@ def getConformers(filename, pos):
   return list
 
 def parseStructure(conformers, repeatId, token):
-  os.makedirs('./files/' + token + '/structures')
+  #os.makedirs('./files/' + token + '/structures')
   io = PDBIO()
   parser = PDBParser(PERMISSIVE=1)
   for item in conformers:
-    arr = item.split('_')
-    pdb = arr[0]
-    if (pdb != repeatId[:4]):
-      downloadPDB(pdb, './files/' + token + '/entries')
-    arr2 = arr[1].split('-')
-    structure_id = pdb
-    filename = './files/' + token + '/entries/pdb' + pdb + '.ent'
-    structure = parser.get_structure(structure_id, filename)
-    if (len(arr2) == 2):
-      repeat_chain = arr2[0]
-      repeat_model = int(arr2[1])
-      model = structure[repeat_model - 1]
-      for chain in model.get_list():
-        if (repeat_chain == chain.get_id()):
-          io.set_structure(chain)
-          io.save('./files/' + token + '/structures/' + pdb + '_' + repeat_chain + '-' + str(repeat_model) + '.pdb')
-          break
-    elif (len(arr2) == 1):
-      repeat_chain = arr[1]
-      for chain in structure.get_chains():
-        if (repeat_chain == chain.get_id()):
-          io.set_structure(chain)
-          io.save('./files/' + token + '/structures/' + pdb + '_' + repeat_chain + '.pdb')
-          break
+    structure_file = '/structures/' + item[:1] + '/' + item + '.pdb'
+    fileObj = Path(structure_file)
+    if not fileObj.is_file():    
+      arr = item.split('_')
+      pdb = arr[0]
+      if (pdb != repeatId[:4]):
+        pdb_file = './files/' + token + '/entries/pdb' + pdb + '.ent'
+        file = Path(pdb_file)
+        if not file.is_file():    
+          downloadPDB(pdb, './files/' + token + '/entries')
+      arr2 = arr[1].split('-')
+      structure_id = pdb
+      filename = './files/' + token + '/entries/pdb' + pdb + '.ent'
+      structure = parser.get_structure(structure_id, filename)
+      if (len(arr2) == 2):
+        repeat_chain = arr2[0]
+        repeat_model = int(arr2[1])
+        model = structure[repeat_model - 1]
+        for chain in model.get_list():
+          if (repeat_chain == chain.get_id()):
+            io.set_structure(chain)
+            io.save('./structures/' + pdb[:1] + '/' + pdb + '_' + repeat_chain + '-' + str(repeat_model) + '.pdb')
+            break
+      elif (len(arr2) == 1):
+        repeat_chain = arr[1]
+        for chain in structure.get_chains():
+          if (repeat_chain == chain.get_id()):
+            io.set_structure(chain)
+            io.save('./structures/' + pdb[:1] + '/'  + pdb + '_' + repeat_chain + '.pdb')
+            break
 
 def generateRepeatRegion(repeatId, lower, upper, flag, token):
   if (flag):
@@ -275,11 +289,12 @@ def getConformersList(filename, repeatId):
   return l
 
 def estimateConformers(repeat, token):
+  warnings.filterwarnings('ignore')
   _repeatId = repeat.split('_')[0].lower() + '_' + repeat.split('_')[1]
   repeatId = repeat.split('_')[0].lower() + '_' + repeat.split('_')[1] + '_' + repeat.split('_')[2] + '_' + repeat.split('_')[3]
   pos = getPosCluster('./tsv-files/clusters.tsv', _repeatId)
   conformers = getConformers('./tsv-files/clusters.tsv', pos)
-  #parseStructure(conformers, _repeatId[:4], token)
+  parseStructure(conformers, _repeatId[:4], token)
   generateRepeatRegion(_repeatId, repeat.split('_')[2], repeat.split('_')[3], True, token)
   superposition(conformers, repeatId, token)
   generateConformers(token)

@@ -21,7 +21,7 @@ def create_app(config_class=Config):
   migrate.init_app(app, db)
   mail.init_app(app)
   app.redis = Redis.from_url(app.config['REDIS_URL'])
-  app.task_queue = rq.Queue('codnas-repeats-tasks', connection=app.redis, default_timeout=600)
+  app.task_queue = rq.Queue('codnas-repeats-tasks', connection=app.redis, default_timeout=1800)
 
   from app.api import bp as api_bp
   app.register_blueprint(api_bp, url_prefix='/api')
