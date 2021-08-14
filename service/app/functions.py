@@ -121,7 +121,7 @@ def parseStructure(conformers, repeatId, token):
   io = PDBIO()
   parser = PDBParser(PERMISSIVE=1)
   for item in conformers:
-    structure_file = '/structures/' + item[:1] + '/' + item + '.pdb'
+    structure_file = './structures/' + item[:1] + '/' + item + '.pdb'
     fileObj = Path(structure_file)
     if not fileObj.is_file():    
       arr = item.split('_')
