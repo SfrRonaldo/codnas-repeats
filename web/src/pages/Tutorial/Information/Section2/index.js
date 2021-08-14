@@ -1,4 +1,6 @@
 import { Fragment } from 'react'
+import EstimateOption from '../../../../assets/img/estimate-option.png'
+import SearchOption from '../../../../assets/img/search-option.png'
 
 const Section2 = () => {
   return (
@@ -16,7 +18,7 @@ const Section2 = () => {
           registered to date. Likewise, if the user does not remember the repeated protein that he wants to search for,
           the tool will grant him the autofill to facilitate his search.
         </p>
-        <p>Ingresar imagen respectiva</p>
+        <img src={SearchOption} alt="search option" />
         <h2 className="text-lg sm:text-xl font-bold text-gray-700 text-justify">
           2.2. Estimate conformational diversity
         </h2>
@@ -28,7 +30,7 @@ const Section2 = () => {
           the user does not remember the repeated protein that he wants to estimate, the tool will grant him the
           autofill to facilitate his estimation.
         </p>
-        <p>Ingresar imagen respectiva</p>
+        <img src={EstimateOption} alt="estimate option" />
       </div>
     </Fragment>
   )

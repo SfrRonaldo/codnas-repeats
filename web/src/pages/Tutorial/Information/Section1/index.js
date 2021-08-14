@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import Home from '../../../../assets/img/codnas-repeats.png'
 
 const Section1 = () => {
   return (
@@ -13,7 +14,7 @@ const Section1 = () => {
           Tutorial where the steps that must be followed to properly handle the tool are detailed. The user can access
           this section through the header or by pressing the option “How to evaluate?”.
         </p>
-        <p>Ingresar imagen respectiva</p>
+        <img src={Home} alt="codnas-repeats" />
       </div>
     </Fragment>
   )
