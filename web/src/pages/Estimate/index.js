@@ -31,11 +31,17 @@ const Estimate = ({ history }) => {
     if (regex.test(id)) {
       const pdbId = `${id.split('_')[0].toLowerCase()}_${id.split('_')[1]}`
       if (data.some((item) => item.pdb_id === pdbId)) {
-        setLoading(true)
-        setVerified(true)
-        const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
-        getEstimateDetails()
-        setChecked(true)
+        const repeat = data.find((datum) => datum.pdb_id === pdbId)
+        if (parseInt(id.split('_')[2]) >= repeat.lower && parseInt(id.split('_')[3]) <= repeat.upper) {
+          setLoading(true)
+          setVerified(true)
+          const getEstimateDetails = () => dispatch(getEstimateDetailsAction(id))
+          getEstimateDetails()
+          setChecked(true)
+        } else {
+          setLoading(true)
+          setVerified(false)
+        }
       } else {
         setLoading(true)
         setVerified(false)
@@ -154,9 +160,14 @@ const Estimate = ({ history }) => {
               )
             ) : (
               <div className="py-5 sm:py-10 space-y-4">
-                <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Results Not Found</h1>
-                <h2>The results you are looking for are not found.</h2>
-                <h2>Try searching again or use the Go Back button below.</h2>
+                <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">
+                  Conformational diversity estimation not possible
+                </h1>
+                <h2>
+                  The estimate you are trying to make is not possible, because you entered a repeat protein next to its
+                  repeat region improperly.
+                </h2>
+                <h2>Please try estimating again or use the back button below.</h2>
                 <button
                   className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
                   onClick={() => history.push('/home')}
