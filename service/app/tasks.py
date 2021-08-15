@@ -1,4 +1,4 @@
-from os import sync
+import os
 import secrets
 import sys
 import string
@@ -62,7 +62,7 @@ def analysis(data):
       sync=True
     )    
     estimate_conformational_diversity(data['repeatId'])
-    url = 'http://localhost/repeats/estimate/{}'.format(data['repeatId'])
+    url = os.environ.get('WEB_URL') + '/repeats/estimate/{}'.format(data['repeatId'])
     send_email(
       '[CoDNaS-Repeats] Conformational diversity analysis',
       sender=app.config['ADMINS'][0],
