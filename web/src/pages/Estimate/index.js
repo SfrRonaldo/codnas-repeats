@@ -93,22 +93,12 @@ const Estimate = ({ history }) => {
 
   return (
     <Fragment>
-      <div className="pt-6 pb-40">
-        <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
-          <div className="max-w-full px-1 mx-auto lg:px-4">
-            {!loading && (
-              <div className="pt-12 space-y-4">
-                <div id="loader" style={{ textAlign: '-webkit-center' }}>
-                  <ReactLoading type="spin" color="#d0646c" />
-                </div>
-                <div className="text-center">
-                  <span>Loading...</span>
-                </div>
-              </div>
-            )}
-            {verified ? (
-              checked ? (
-                !general ? (
+      <div className={`${general ? 'intro' : ''}`}>
+        <div className="overlay">
+          <div className="pt-6 pb-40">
+            <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
+              <div className="max-w-full px-1 mx-auto lg:px-4">
+                {!loading && (
                   <div className="pt-12 space-y-4">
                     <div id="loader" style={{ textAlign: '-webkit-center' }}>
                       <ReactLoading type="spin" color="#d0646c" />
@@ -117,65 +107,79 @@ const Estimate = ({ history }) => {
                       <span>Loading...</span>
                     </div>
                   </div>
+                )}
+                {verified ? (
+                  checked ? (
+                    !general ? (
+                      <div className="pt-12 space-y-4">
+                        <div id="loader" style={{ textAlign: '-webkit-center' }}>
+                          <ReactLoading type="spin" color="#d0646c" />
+                        </div>
+                        <div className="text-center">
+                          <span>Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="pt-8">
+                          <General general={general} />
+                        </div>
+                        <div className="pt-12">
+                          <Structural structural={structural} />
+                        </div>
+                        <div className="pt-12">
+                          <Conformer conformers={conformers} />
+                        </div>
+                      </>
+                    )
+                  ) : (
+                    <div className="py-5 sm:py-10 space-y-4">
+                      <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Request</h1>
+                      <h2>Conformational diversity analysis will take time.</h2>
+                      <h2>Enter your email and we will send you a prompt reply when the analysis is finished.</h2>
+                      <form onSubmit={(e) => onSubmit(e)} className="space-y-4">
+                        {open && (
+                          <Alert onClose={handleClose} severity="error" className="w-full sm:w-80">
+                            {msgError}
+                          </Alert>
+                        )}
+                        <input
+                          className="block appearance-none border border-gray-300 w-full sm:w-80 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary-dark"
+                          placeholder="your-email@example.com"
+                          type="email"
+                          name="email"
+                          id="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <button
+                          className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
+                          onClick={(e) => onSubmit(e)}
+                        >
+                          Send
+                        </button>
+                      </form>
+                    </div>
+                  )
                 ) : (
-                  <>
-                    <div className="pt-8">
-                      <General general={general} />
-                    </div>
-                    <div className="pt-12">
-                      <Structural structural={structural} />
-                    </div>
-                    <div className="pt-12">
-                      <Conformer conformers={conformers} />
-                    </div>
-                  </>
-                )
-              ) : (
-                <div className="py-5 sm:py-10 space-y-4">
-                  <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Request</h1>
-                  <h2>Conformational diversity analysis will take time.</h2>
-                  <h2>Enter your email and we will send you a prompt reply when the analysis is finished.</h2>
-                  <form onSubmit={(e) => onSubmit(e)} className="space-y-4">
-                    {open && (
-                      <Alert onClose={handleClose} severity="error" className="w-full sm:w-80">
-                        {msgError}
-                      </Alert>
-                    )}
-                    <input
-                      className="block appearance-none border border-gray-300 w-full sm:w-80 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-primary-dark"
-                      placeholder="your-email@example.com"
-                      type="email"
-                      name="email"
-                      id="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                  <div className="py-5 sm:py-10 space-y-4">
+                    <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">
+                      Conformational diversity estimation not possible
+                    </h1>
+                    <h2>
+                      The estimate you are trying to make is not possible, because you entered a repeat protein next to
+                      its repeat region improperly.
+                    </h2>
+                    <h2>Please try estimating again or use the back button below.</h2>
                     <button
                       className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
-                      onClick={(e) => onSubmit(e)}
+                      onClick={() => history.push('/home')}
                     >
-                      Send
+                      Go back home
                     </button>
-                  </form>
-                </div>
-              )
-            ) : (
-              <div className="py-5 sm:py-10 space-y-4">
-                <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">
-                  Conformational diversity estimation not possible
-                </h1>
-                <h2>
-                  The estimate you are trying to make is not possible, because you entered a repeat protein next to its
-                  repeat region improperly.
-                </h2>
-                <h2>Please try estimating again or use the back button below.</h2>
-                <button
-                  className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
-                  onClick={() => history.push('/home')}
-                >
-                  Go back home
-                </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

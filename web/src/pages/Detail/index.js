@@ -29,35 +29,41 @@ const Detail = ({ history }) => {
 
   return (
     <Fragment>
-      <div className="pt-6 pb-40">
-        <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
-          <div className="max-w-full px-1 mx-auto lg:px-4">
-            {!general &&
-              (!error ? (
-                <div className="pt-12 space-y-4">
-                  <div id="loader" style={{ textAlign: '-webkit-center' }}>
-                    <ReactLoading type="spin" color="#d0646c" />
-                  </div>
-                  <div className="text-center">
-                    <span>Loading...</span>
-                  </div>
+      <div className={`${general ? 'intro' : ''}`}>
+        <div className="overlay">
+          <div className="pt-6 pb-40">
+            <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
+              <div className="max-w-full px-1 mx-auto lg:px-4">
+                {!general &&
+                  (!error ? (
+                    <div className="pt-12 space-y-4">
+                      <div id="loader" style={{ textAlign: '-webkit-center' }}>
+                        <ReactLoading type="spin" color="#d0646c" />
+                      </div>
+                      <div className="text-center">
+                        <span>Loading...</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="py-5 sm:py-10 space-y-4">
+                      <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Results Not Found</h1>
+                      <h2>The results you are looking for are not found.</h2>
+                      <h2>Try searching again or use the Go Back button below.</h2>
+                      <button
+                        className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
+                        onClick={() => history.push('/home')}
+                      >
+                        Go back home
+                      </button>
+                    </div>
+                  ))}
+                <div className="pt-8">{general && <General id={pdbId} general={general} />}</div>
+                <div className="pt-12">{general && <Structural structural={structural} />}</div>
+                <div className="pt-12">
+                  {general && <Conformer id={pdbId} general={general} conformers={conformers} />}
                 </div>
-              ) : (
-                <div className="py-5 sm:py-10 space-y-4">
-                  <h1 className="text-gray-700 text-3xl md:text-4xl font-bold text-left">Results Not Found</h1>
-                  <h2>The results you are looking for are not found.</h2>
-                  <h2>Try searching again or use the Go Back button below.</h2>
-                  <button
-                    className="px-4 py-2 bg-primary-dark rounded hover:bg-opacity-90 text-white border-1"
-                    onClick={() => history.push('/home')}
-                  >
-                    Go back home
-                  </button>
-                </div>
-              ))}
-            <div className="pt-8">{general && <General id={pdbId} general={general} />}</div>
-            <div className="pt-12">{general && <Structural structural={structural} />}</div>
-            <div className="pt-12">{general && <Conformer id={pdbId} general={general} conformers={conformers} />}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
