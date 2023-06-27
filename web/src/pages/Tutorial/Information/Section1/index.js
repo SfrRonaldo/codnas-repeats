@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import Home from '../../../../assets/img/codnas-repeats.png'
+import Home from '../../../../assets/img/codnas-repeats.webp'
 
 const Section1 = () => {
   return (
@@ -14,7 +14,9 @@ const Section1 = () => {
           Tutorial where the steps that must be followed to properly handle the tool are detailed. The user can access
           this section through the header or by pressing the option “How to evaluate?”.
         </p>
-        <img src={Home} alt="codnas-repeats" />
+        <div className="flex justify-center">
+          <img src={Home} alt="codnas-repeats" />
+        </div>
       </div>
     </Fragment>
   )

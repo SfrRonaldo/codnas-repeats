@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
-import GenInfoSearch from '../../../../assets/img/gen-info-search.png'
-import StrucInfoSearch from '../../../../assets/img/struc-info-search.png'
-import ConfSearch from '../../../../assets/img/conf-search.png'
-import GenInfoEstimate from '../../../../assets/img/gen-info-estimate.png'
-import StrucInfoEstimate from '../../../../assets/img/struc-info-estimate.png'
-import ConfEstimate from '../../../../assets/img/conf-estimate.png'
+import GenInfoSearch from '../../../../assets/img/gen-info-search.webp'
+import StrucInfoSearch from '../../../../assets/img/struc-info-search.webp'
+import ConfSearch from '../../../../assets/img/conf-search.webp'
+import GenInfoEstimate from '../../../../assets/img/gen-info-estimate.webp'
+import StrucInfoEstimate from '../../../../assets/img/struc-info-estimate.webp'
+import ConfEstimate from '../../../../assets/img/conf-estimate.webp'
 
 const Section3 = () => {
   return (
@@ -65,7 +65,9 @@ const Section3 = () => {
               </span>
             </li>
           </ul>
-          <img src={GenInfoSearch} alt="general information search" />
+          <div className="flex justify-center">
+            <img src={GenInfoSearch} alt="general information search" />
+          </div>
           <hr />
           <h3 className="text-base sm:text-lg font-bold text-gray-700 text-justify">
             Section 2: Structural Information
@@ -77,7 +79,9 @@ const Section3 = () => {
             minimum, maximum and average RMSDs determined by the TMalign software are displayed. These values provide
             the central measures of conformational diversity.
           </p>
-          <img src={StrucInfoSearch} alt="structural information search" />
+          <div className="flex justify-center">
+            <img src={StrucInfoSearch} alt="structural information search" />
+          </div>
           <hr />
           <h3 className="text-base sm:text-lg font-bold text-gray-700 text-justify">Section 3: Conformers</h3>
           <p className="text-sm sm:text-base text-justify">
@@ -86,7 +90,9 @@ const Section3 = () => {
             represent its range, the sequence identity expressed in a numerical value and the structural difference
             between the repeated protein and the respective conformation by RMSD statistical measurement.
           </p>
-          <img src={ConfSearch} alt="conformers search" />
+          <div className="flex justify-center">
+            <img src={ConfSearch} alt="conformers search" />
+          </div>
           <hr />
           <h2 className="text-lg sm:text-xl font-bold text-gray-700 text-justify">
             3.2. Results of the estimation of conformational diversity
@@ -128,7 +134,9 @@ const Section3 = () => {
               </span>
             </li>
           </ul>
-          <img src={GenInfoEstimate} alt="general information estimate" />
+          <div className="flex justify-center">
+            <img src={GenInfoEstimate} alt="general information estimate" />
+          </div>
           <hr />
           <h3 className="text-base sm:text-lg font-bold text-gray-700 text-justify">
             Section 2: Structural Information
@@ -140,7 +148,9 @@ const Section3 = () => {
             average RMSDs determined by the TMalign software are displayed. These values provide the central measures of
             conformational diversity.
           </p>
-          <img src={StrucInfoEstimate} alt="structural information estimate" />
+          <div className="flex justify-center">
+            <img src={StrucInfoEstimate} alt="structural information estimate" />
+          </div>
           <hr />
           <h3 className="text-base sm:text-lg font-bold text-gray-700 text-justify">Section 3: Conformers</h3>
           <p className="text-sm sm:text-base text-justify">
@@ -150,7 +160,9 @@ const Section3 = () => {
             numerical value and the structural difference between the repeated protein and the respective conformation
             through the RMSD statistical measurement.
           </p>
-          <img src={ConfEstimate} alt="conformers estimate" />
+          <div className="flex justify-center">
+            <img src={ConfEstimate} alt="conformers estimate" />
+          </div>
         </div>
       </div>
     </Fragment>

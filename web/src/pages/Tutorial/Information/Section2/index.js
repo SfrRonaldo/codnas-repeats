@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
-import EstimateOption from '../../../../assets/img/estimate-option.png'
-import SearchOption from '../../../../assets/img/search-option.png'
+import EstimateOption from '../../../../assets/img/estimate-option.webp'
+import SearchOption from '../../../../assets/img/search-option.webp'
 
 const Section2 = () => {
   return (
@@ -19,7 +19,9 @@ const Section2 = () => {
             repeated protein registered to date. Likewise, if the user does not remember the repeated protein that he
             wants to search for, the tool will grant him the autofill to facilitate his search.
           </p>
-          <img src={SearchOption} alt="search option" />
+          <div className="flex justify-center">
+            <img src={SearchOption} alt="search option" />
+          </div>
           <h2 className="text-lg sm:text-xl font-bold text-gray-700 text-justify">
             2.2. Estimate conformational diversity
           </h2>
@@ -31,7 +33,9 @@ const Section2 = () => {
             field. Also, in case the user does not remember the repeated protein that he wants to estimate, the tool
             will grant him the autofill to facilitate his estimation.
           </p>
-          <img src={EstimateOption} alt="estimate option" />
+          <div className="flex justify-center">
+            <img src={EstimateOption} alt="estimate option" />
+          </div>
         </div>
       </div>
     </Fragment>

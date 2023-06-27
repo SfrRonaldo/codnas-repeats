@@ -20,8 +20,8 @@ const Header = () => {
   return (
     <Popover className="bg-primary-dark sticky top-0 py-1 lg:py-3 shadow-lg z-50">
       {({ open }) => (
-        <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
-          <div className="max-w-full px-1 mx-auto lg:px-4">
+        <div className="px-4 sm:px-16 lg:px-20 mx-auto">
+          <div className="max-w-7xl px-1 mx-auto lg:px-4">
             <nav className="relative flex items-center justify-between h-16" aria-label="Global">
               <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
@@ -88,8 +88,10 @@ const Header = () => {
                       key={item.name}
                       to={item.path}
                       className={classNames(
-                        'text-black hover:bg-primary-dark',
-                        `block px-3 py-2 rounded-md text-sm nav-link ${pathname === item.path ? 'bg-primary-dark' : ''}`
+                        'text-black hover:bg-primary-dark hover:text-white',
+                        `block px-3 py-2 rounded-md text-sm nav-link ${
+                          pathname === item.path ? 'bg-primary-dark text-white' : ''
+                        }`
                       )}
                     >
                       {item.name}

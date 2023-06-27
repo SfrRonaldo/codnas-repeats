@@ -32,8 +32,8 @@ const Detail = ({ history }) => {
       <div className={`${general ? 'intro' : ''}`}>
         <div className="overlay">
           <div className="pt-6 pb-40">
-            <div className="px-4 sm:px-16 lg:px-32 xl:px-48 2xl:px-60 mx-auto">
-              <div className="max-w-full px-1 mx-auto lg:px-4">
+            <div className="px-4 sm:px-16 lg:px-32 mx-auto">
+              <div className="max-w-7xl px-1 mx-auto lg:px-4">
                 {!general &&
                   (!error ? (
                     <div className="pt-12 space-y-4">
