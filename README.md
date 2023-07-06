@@ -1,2 +1,2 @@
-# codnas-repeats
+# CoDNaS-Repeats
 CoDNaS-Repeats
