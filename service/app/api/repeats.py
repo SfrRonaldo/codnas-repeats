@@ -116,7 +116,7 @@ def get_structural_information_result(repeatId):
     _lower = int(repeatId.split('_')[2])
     _upper = int(repeatId.split('_')[3])
     genInfo = GenInfoResult.query.filter_by(pdb_id=_pdbId, lower=_lower, upper=_upper).first().to_dict()
-    _id = int(genInfo['id'])
+    _id = genInfo['id']
     data = StrucInfoResult.query.filter_by(id=_id).first().to_dict()
     response = jsonify(
       category="success",
@@ -143,7 +143,7 @@ def get_conformers_results(repeatId):
     _lower = int(repeatId.split('_')[2])
     _upper = int(repeatId.split('_')[3])
     genInfo = GenInfoResult.query.filter_by(pdb_id=_pdbId, lower=_lower, upper=_upper).first().to_dict()
-    _id_result = int(genInfo['id'])
+    _id_result = genInfo['id']
     results_conformer_1 = ConformerResult.query.filter_by(id_result=_id_result, conformer_1=_pdbId).all()
     results_conformer_2 = ConformerResult.query.filter_by(id_result=_id_result, conformer_2=_pdbId).all()
     data = []
