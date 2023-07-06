@@ -13,7 +13,7 @@ CoDNaS Repeats is a high confidence database of conformational diversity in tand
 7. Enter a browser and put it in the address bar `http://localhost`
 8. Enjoy it!
 
-## Stack usado
+## Stack used
 * React
 * Flask
 * MySQL
